@@ -11,7 +11,7 @@
 </head>
 <body>
   <div id="app">
-    <animated-text :text="hello"></animated-text>
+    <type-writer :text="hello"></type-writer>
   </div>
 
   <script>
@@ -34,8 +34,8 @@
 
     const { loadModule } = window['vue3-sfc-loader'];
 
-    // Load the AnimatedText component
-    loadModule('./AnimatedText.vue', options).then(AnimatedText => {
+    // Load the TypeWriter component
+    loadModule('./TypeWriter.vue', options).then(TypeWriter => {
       // Create the Vue app
       const app = Vue.createApp({
         data() {
@@ -45,7 +45,7 @@
           };
         },
         components: {
-          AnimatedText
+          TypeWriter
         }
       });
 

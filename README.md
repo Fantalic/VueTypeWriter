@@ -1,0 +1,2 @@
+- run serve.sh 
+- open http://localhost:8000
