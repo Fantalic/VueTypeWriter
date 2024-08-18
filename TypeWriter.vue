@@ -16,7 +16,6 @@ const lines:string[] = splitTextIntoLines(props.text)
 const dLines = [0, ...lines.map((line)=> line.length * dLetter)]
 const linesRef:Ref<string[]> = ref([lines]);
 
-console.log("TEXT",props.text)
 function splitTextIntoLines(text:string) {
   return text.split("\n");
 }
@@ -25,34 +24,24 @@ function getAnimationDelay(letterIndex:number, lineIndex:number) {
   const dLetter = props.speed;
 
   const delay = letterIndex * dLetter + "s";
-  console.log(letterIndex)
   
   const line_length = lines[letterIndex]?.length;
-  console.log(line_length)
   if (letterIndex === line_length -1){
-    console.log("`?",lineIndex)
-    console.log(lines[lineIndex])
     linesRef._raw_value.push(lines[lineIndex])
-    console.log(lineIndex)
   }
 
   return {
     animationDelay: delay,
   };
 }
-
-
-
 </script>
 <template>
   <div class="aText" :style="(fontSize>0)? `font-size:${props.fontSize}em`:''">
-
     <p
       v-for="(line, lineIndex) in lines" 
       :key="lineIndex" 
       style="padding:0;margin:0"
     > 
-    <!-- <p> {{lines[lineIndex]}}</p> -->
         <span
           v-for="(letter, letterIndex) in line"
           :key="letterIndex"
