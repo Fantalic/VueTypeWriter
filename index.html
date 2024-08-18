@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Vue 3 App</title>
+  <!-- Vue 3 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- SFC Loader -->
+  <script src="https://unpkg.com/vue3-sfc-loader"></script>
+</head>
+<body>
+  <div id="app">
+    <animated-text :text="hello"></animated-text>
+  </div>
+
+  <script>
+    const options = {
+      moduleCache: {
+        vue: Vue
+      },
+      getFile(url) {
+        return fetch(url).then(response => response.ok ? response.text() : Promise.reject(response));
+      },
+      addStyle(textContent) {
+        const style = Object.assign(document.createElement('style'), { textContent });
+        const ref = document.head.getElementsByTagName('style')[0] || null;
+        document.head.insertBefore(style, ref);
+      },
+      log(type, ...args) {
+        console[type](...args);
+      }
+    };
+
+    const { loadModule } = window['vue3-sfc-loader'];
+
+    // Load the AnimatedText component
+    loadModule('./AnimatedText.vue', options).then(AnimatedText => {
+      // Create the Vue app
+      const app = Vue.createApp({
+        data() {
+          return {
+            hello: 'Hallo Welt! Das ist ein Test ! \n' +
+              "In the ever-evolving landscape of technology, innovation drives progress, opening doors to new possibilities. Embracing change with enthusiasm, we explore uncharted territories and push the boundaries of what's achievable, transforming our world."
+          };
+        },
+        components: {
+          AnimatedText
+        }
+      });
+
+      // Mount the app
+      app.mount('#app');
+    });
+  </script>
+</body>
+</html>
